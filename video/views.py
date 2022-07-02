@@ -12,7 +12,6 @@ import datetime
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def getVideo(request):
     stored_data = Video.objects.all()
     serializer = VideoSerializer(stored_data, many=True)

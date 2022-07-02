@@ -13,7 +13,6 @@ from django.core.files.base import ContentFile
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def getHomeBanner(request):
     stored_data = HomeBanner.objects.all()
     serializer = HomeBannerSerializer(stored_data, many=True)

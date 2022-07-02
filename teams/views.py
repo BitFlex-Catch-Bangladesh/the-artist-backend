@@ -13,7 +13,6 @@ from django.core.files.base import ContentFile
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def getTeams(request):
     stored_data = Team.objects.all()
     serializer = TeamSerializer(stored_data, many=True)

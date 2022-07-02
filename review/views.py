@@ -13,7 +13,6 @@ from django.core.files.base import ContentFile
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def getReview(request):
     stored_data = Review.objects.all()
     serializer = ReviewSerializer(stored_data, many=True)

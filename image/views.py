@@ -12,7 +12,6 @@ import base64
 from django.core.files.base import ContentFile
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def getImage(request):
     stored_data = Image.objects.all()
     serializer = ImageSerializer(stored_data, many=True)
