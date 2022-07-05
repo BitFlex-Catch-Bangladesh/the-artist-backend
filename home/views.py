@@ -16,7 +16,7 @@ from django.core.files.base import ContentFile
 def getHomeBanner(request):
     stored_data = HomeBanner.objects.all()
     serializer = HomeBannerSerializer(stored_data, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data[0])
 
 
 @api_view(['POST'])
