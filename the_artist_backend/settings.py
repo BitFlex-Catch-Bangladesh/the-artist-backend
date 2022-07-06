@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "teams",
     "home",
     "contact",
+    "package",
     'rest_framework_simplejwt.token_blacklist',
     "corsheaders",
 ]

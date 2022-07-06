@@ -1,0 +1,103 @@
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from rest_framework import generics
+# Create your views here.
+from .models import *
+from .serializer import *
+import datetime
+import base64
+from django.utils.text import slugify
+from django.core.files.base import ContentFile
+
+
+@api_view(['GET'])
+def getPackages(request):
+    stored_data = Package.objects.all()
+    serializer = PackageSerializer(stored_data, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getPackagesByCategory(request, pk):
+    stored_data = Package.objects.filter(category=pk)
+    serializer = PackageSerializer(stored_data, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createPackage(request):
+    try:
+        payload = request.data
+        if 'img' in payload:
+            fmt, img_str = str(payload['img']).split(';base64,')
+            ext = fmt.split('/')[-1]
+            img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
+            payload['img'] = img_file
+
+        package_serializer = PackageSerializer(data=payload)
+
+        if package_serializer.is_valid():
+            instance = package_serializer.save()
+            print(instance.package_name)
+            package_slug = slugify(instance.package_name)
+            print(package_slug)
+            instance.slug = package_slug
+            instance.save()
+
+            response = {
+                'code': '200',
+                'data': PackageSerializer(package_serializer.instance, context={'request': request}).data
+            }
+            return Response(response)
+        else:
+            return Response(package_serializer.errors)
+    except Exception as e:
+        response = {
+            'code': '400',
+            'message': str(e)
+        }
+        return Response(response)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def updatePackage(request, pk):
+    try:
+        payload = request.data
+        print("bla")
+        if 'img' in payload:
+            fmt, img_str = str(payload['img']).split(';base64,')
+            ext = fmt.split('/')[-1]
+            img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
+            payload['img'] = img_file
+        package_instance = Package.objects.get(id=pk)
+        package_serializer = PackageSerializer(instance=package_instance, data=payload)
+        print("bla3")
+        if package_serializer.is_valid():
+            print("bla2")
+            package_serializer.save()
+            response = {
+                'code': '200',
+                'data': PackageSerializer(package_serializer.instance, context={'request': request}).data
+            }
+            return Response(response)
+        else:
+            return Response(package_serializer.errors)
+    except Exception as e:
+        response = {
+            'code': '400',
+            'message': str(e)
+        }
+        return Response(response)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deletePackage(request, pk):
+    stored_data = Package.objects.get(id=pk)
+    stored_data.delete()
+    return Response({'msg': "Item Deleted Successfully!"})

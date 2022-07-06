@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/', include('teams.urls')),
     path('api/', include('home.urls')),
     path('api/', include('contact.urls')),
+    path('api/', include('package.urls')),
 
 
 ]
