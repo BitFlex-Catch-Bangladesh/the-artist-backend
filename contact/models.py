@@ -7,7 +7,7 @@ class Contact(models.Model):
     bl_name = models.CharField(max_length=250, null=True)
     gf_name = models.CharField(max_length=250, null=True)
     gl_name = models.CharField(max_length=250, null=True)
-    wedding_dates = models.DateTimeField(null=True)
+    wedding_dates =  models.CharField(max_length=250, null=True)
     event_details = models.TextField()
     venue = models.TextField()
     c_number = models.CharField(max_length=250, null=True)

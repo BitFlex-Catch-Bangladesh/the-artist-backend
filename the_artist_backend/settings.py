@@ -84,8 +84,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "https://example.com",
     "https://sub.example.com",
-    "http://sitetest.bitflex.xyz"
-    "https://sitetest.bitflex.xyz"
+    "http://sitetest.bitflex.xyz",
+    "https://sitetest.bitflex.xyz",
     "http://localhost:8080",
     "http://127.0.0.1:9000",
 ]
