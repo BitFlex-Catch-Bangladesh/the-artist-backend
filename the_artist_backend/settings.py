@@ -89,9 +89,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:9000",
 ]
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://\w+\.example\.com$",
-]
+
 ROOT_URLCONF = 'the_artist_backend.urls'
 
 TEMPLATES = [
