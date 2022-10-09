@@ -44,7 +44,7 @@ def createPackage(request):
             instance = package_serializer.save()
             print(instance.package_name)
             package_id = str(instance.id)
-            package_slug = slugify(instance.package_name) +"-" +package_id
+            package_slug = slugify(instance.package_name) + "-" + package_id
             print(package_slug)
             instance.slug = package_slug
             instance.save()
