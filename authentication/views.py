@@ -46,7 +46,7 @@ def tokenObtainPair(request):
                 #
 
                 return Response({
-
+                    'code': status.HTTP_200_OK,
                     'access_token': str(refresh.access_token),
                     'refresh_token': str(refresh),
                     'token_type': str(refresh.payload['token_type']),
@@ -99,6 +99,7 @@ def tokenRefresh(request):
         refresh = RefreshToken(token=request.data.get('refresh_token'), verify=True)
 
         return Response({
+            'code': status.HTTP_200_OK,
             'access_token': str(refresh.access_token),
             'refresh_token': str(refresh),
             'token_type': str(refresh.payload['token_type']),
@@ -128,6 +129,7 @@ def tokenVerify(request, self):
         verify = UntypedToken(token=request.data.get('access_token'))
 
         return Response({
+            'code':status.HTTP_200_OK,
             'access_token': str(verify.token),
             'token_type': str(verify.payload['token_type']),
             'expiry': verify.payload['exp'],
@@ -169,10 +171,10 @@ def registration_view(request):
         serializer2 = AccountSerializer(data=account_data)
 
         if serializer.is_valid() and serializer2.is_valid():
-
             user = serializer.save()
             account = serializer2.save(user=user)
             return Response({
+                'code': status.HTTP_200_OK,
                 'response': "successfully registered user",
                 'email': user.email,
                 'username': user.username,
@@ -180,4 +182,8 @@ def registration_view(request):
                 'phone_no': account.phone_no
             })
         else:
-            return Response(serializer.errors)
+            return Response({
+                'code':status.HTTP_400_BAD_REQUEST,
+                'message': "Error Occured",
+                'error':serializer.errors
+            })
