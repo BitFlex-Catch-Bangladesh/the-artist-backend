@@ -11,8 +11,10 @@ import datetime
 import base64
 from django.utils.text import slugify
 from django.core.files.base import ContentFile
-
-
+from image.models import *
+from review.models import *
+from video.models import *
+from contact.models import *
 @api_view(['GET'])
 def getPackages(request):
     stored_data = Package.objects.all()
@@ -24,6 +26,11 @@ def getPackages(request):
 def getPackagesByCategory(request, pk):
     stored_data = Package.objects.filter(category=pk)
     serializer = PackageSerializer(stored_data, many=True)
+    return Response(serializer.data)
+@api_view(['GET'])
+def getPackagesByID(request, pk):
+    stored_data = Package.objects.get(id=pk)
+    serializer = PackageSerializer(stored_data)
     return Response(serializer.data)
 
 
@@ -102,3 +109,23 @@ def deletePackage(request, pk):
     stored_data = Package.objects.get(id=pk)
     stored_data.delete()
     return Response({'msg': "Item Deleted Successfully!"})
+
+# from image.models import *
+# from review.models import *
+# from video.models import *
+# from contact.models import *
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getCounts(request):
+    package_count = Package.objects.all().count()
+    image_count=Image.objects.all().count()
+    review_count= Review.objects.all().count()
+    video_count=Video.objects.all().count()
+
+    return Response({
+        "code":200,
+        "package":package_count,
+        "image":image_count,
+        "review":review_count,
+        "film":video_count
+    })
