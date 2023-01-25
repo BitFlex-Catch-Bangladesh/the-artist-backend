@@ -18,7 +18,12 @@ def getContact(request):
     serializer = ContactSerializer(stored_data, many=True)
     return Response(serializer.data)
 
-
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getContactByDetails(request):
+    stored_data = Contact.objects.get(id=id)
+    serializer = ContactSerializer(stored_data)
+    return Response(serializer.data)
 @api_view(['POST'])
 def createContact(request):
     try:

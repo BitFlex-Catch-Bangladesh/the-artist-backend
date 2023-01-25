@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('contacts', views.getContact),
+    path('contact/details/<str:pk>', views.getContactByDetails),
     path('contact/create', views.createContact),
     path('contact/delete/<str:pk>', views.deleteContact),
 
