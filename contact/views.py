@@ -20,8 +20,8 @@ def getContact(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def getContactByDetails(request):
-    stored_data = Contact.objects.get(id=id)
+def getContactByDetails(request,pk):
+    stored_data = Contact.objects.get(id=pk)
     serializer = ContactSerializer(stored_data)
     return Response(serializer.data)
 @api_view(['POST'])
