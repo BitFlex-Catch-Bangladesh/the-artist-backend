@@ -15,6 +15,8 @@ from image.models import *
 from review.models import *
 from video.models import *
 from contact.models import *
+
+
 @api_view(['GET'])
 def getPackages(request):
     stored_data = Package.objects.all()
@@ -27,6 +29,8 @@ def getPackagesByCategory(request, pk):
     stored_data = Package.objects.filter(category=pk)
     serializer = PackageSerializer(stored_data, many=True)
     return Response(serializer.data)
+
+
 @api_view(['GET'])
 def getPackagesByID(request, pk):
     stored_data = Package.objects.get(id=pk)
@@ -77,7 +81,7 @@ def updatePackage(request, pk):
     try:
         payload = request.data
 
-        if 'img' in payload and 'img' is not None:
+        if 'img' in payload and 'img' != None:
             fmt, img_str = str(payload['img']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
@@ -110,6 +114,7 @@ def deletePackage(request, pk):
     stored_data.delete()
     return Response({'msg': "Item Deleted Successfully!"})
 
+
 # from image.models import *
 # from review.models import *
 # from video.models import *
@@ -118,14 +123,14 @@ def deletePackage(request, pk):
 @permission_classes([IsAuthenticated])
 def getCounts(request):
     package_count = Package.objects.all().count()
-    image_count=Image.objects.all().count()
-    review_count= Review.objects.all().count()
-    video_count=Video.objects.all().count()
+    image_count = Image.objects.all().count()
+    review_count = Review.objects.all().count()
+    video_count = Video.objects.all().count()
 
     return Response({
-        "code":200,
-        "package":package_count,
-        "image":image_count,
-        "review":review_count,
-        "film":video_count
+        "code": 200,
+        "package": package_count,
+        "image": image_count,
+        "review": review_count,
+        "film": video_count
     })
