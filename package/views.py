@@ -80,8 +80,10 @@ def createPackage(request):
 def updatePackage(request, pk):
     try:
         payload = request.data
+        print
 
-        if 'img' in payload and 'img' != None:
+        if 'img' in payload and payload['img'] != None:
+            print('hello')
             fmt, img_str = str(payload['img']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
