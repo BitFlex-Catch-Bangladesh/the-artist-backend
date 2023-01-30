@@ -68,6 +68,7 @@ def addHomeBanner(request):
                 homeBanner_serializer.save()
                 response = {
                     'code': '200',
+                    'message': "Banners Updated Successfully!",
                     'data': HomeBannerSerializer(homeBanner_serializer.instance, context={'request': request}).data
                 }
                 return Response(response)
