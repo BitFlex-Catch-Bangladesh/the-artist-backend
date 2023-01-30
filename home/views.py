@@ -24,22 +24,22 @@ def getHomeBanner(request):
 def addHomeBanner(request):
     try:
         payload = request.data
-        if 'image1' in payload:
+        if 'image1' in payload and payload['image1']!=None:
             fmt, img_str = str(payload['image1']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
             payload['image1'] = img_file
-        if 'image2' in payload:
+        if 'image2' in payload and payload['image2']!=None:
             fmt, img_str = str(payload['image2']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
             payload['image2'] = img_file
-        if 'image3' in payload:
+        if 'image3' in payload and payload['image3']!=None:
             fmt, img_str = str(payload['image3']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
             payload['image3'] = img_file
-        if 'image4' in payload:
+        if 'image4' in payload and payload['image4']!=None:
             fmt, img_str = str(payload['image4']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)

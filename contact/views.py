@@ -58,4 +58,4 @@ def deleteContact(request, pk):
         'code': '200',
         'message': "Contact Deleted Successfully!"
     }
-    return Response({'msg': "Item Deleted Successfully!"})
+    return Response(response)

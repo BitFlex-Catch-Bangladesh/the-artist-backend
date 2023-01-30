@@ -81,7 +81,6 @@ def createPackage(request):
 def updatePackage(request, pk):
     try:
         payload = request.data
-        print
 
         if 'img' in payload and payload['img'] != None:
             print('hello')
@@ -90,7 +89,7 @@ def updatePackage(request, pk):
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
             payload['img'] = img_file
         package_instance = Package.objects.get(id=pk)
-        package_serializer = PackageSerializer(instance=package_instance, data=payload, partial=True)
+        package_serializer = PackageSerializer(instance=package_instance, data=payload)
 
         if package_serializer.is_valid():
 
