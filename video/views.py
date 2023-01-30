@@ -28,6 +28,7 @@ def createVideo(request):
             video_serializer.save()
             response = {
                 'code': '200',
+                'message': "Film created Successfully",
                 'data': VideoSerializer(video_serializer.instance, context={'request': request}).data
             }
             return Response(response)
@@ -52,6 +53,8 @@ def updateVideo(request, pk):
             video_serializer.save()
             response = {
                 'code': '200',
+
+                'message': "Film updated Successfully",
                 'data': VideoSerializer(video_serializer.instance, context={'request': request}).data
             }
             return Response(response)
@@ -70,4 +73,8 @@ def updateVideo(request, pk):
 def deleteVideo(request, pk):
     stored_data = Video.objects.get(id=pk)
     stored_data.delete()
-    return Response({'msg': "Item Deleted Successfully!"})
+    response = {
+        'code': '200',
+        'message': "Film Deleted Successfully!"
+    }
+    return Response(response)

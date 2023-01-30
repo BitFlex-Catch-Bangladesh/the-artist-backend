@@ -36,6 +36,7 @@ def addImage(request):
             image_serializer.save()
             response = {
                 'code': '200',
+                'message': 'Image Uploaded Successfully!',
                 'data': ImageSerializer(image_serializer.instance, context={'request': request}).data
             }
             return Response(response)
@@ -55,4 +56,8 @@ def deleteImage(request,pk):
 
     stored_data = Image.objects.get(id=pk)
     stored_data.delete()
-    return Response({'msg': "Item Deleted Successfully!"})
+    response = {
+        'code': '200',
+        'message': 'Image deleted Successfully!'
+    }
+    return Response(response)

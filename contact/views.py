@@ -33,6 +33,7 @@ def createContact(request):
             contact_serializer.save()
             response = {
                 'code': '200',
+                'message': "Contact Created Successfully!",
                 'data': ContactSerializer(contact_serializer.instance, context={'request': request}).data
             }
             return Response(response)
@@ -53,4 +54,8 @@ def createContact(request):
 def deleteContact(request, pk):
     stored_data = Contact.objects.get(id=pk)
     stored_data.delete()
+    response = {
+        'code': '200',
+        'message': "Contact Deleted Successfully!"
+    }
     return Response({'msg': "Item Deleted Successfully!"})

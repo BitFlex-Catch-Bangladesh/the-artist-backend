@@ -35,6 +35,7 @@ def createReview(request):
             review_serializer.save()
             response = {
                 'code': '200',
+                'message':"Review Created Successfully!",
                 'data': ReviewSerializer(review_serializer.instance, context={'request': request}).data
             }
             return Response(response)
@@ -64,6 +65,7 @@ def updateReview(request, pk):
             review_serializer.save()
             response = {
                 'code': '200',
+                'message': "Review Created Successfully!",
                 'data': ReviewSerializer(review_serializer.instance, context={'request': request}).data
             }
             return Response(response)
@@ -82,4 +84,8 @@ def updateReview(request, pk):
 def deleteReview(request, pk):
     stored_data = Review.objects.get(id=pk)
     stored_data.delete()
-    return Response({'msg': "Item Deleted Successfully!"})
+    response = {
+        'code': '200',
+        'message': "Review Deleted Successfully!"
+    }
+    return Response(response)

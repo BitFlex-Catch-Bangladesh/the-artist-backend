@@ -62,6 +62,7 @@ def createPackage(request):
 
             response = {
                 'code': '200',
+                'message': "Package Created Successfully!",
                 'data': PackageSerializer(package_serializer.instance, context={'request': request}).data
             }
             return Response(response)
@@ -96,6 +97,7 @@ def updatePackage(request, pk):
             package_serializer.save()
             response = {
                 'code': '200',
+                'message': "Package Updated Successfully!",
                 'data': PackageSerializer(package_serializer.instance, context={'request': request}).data
             }
             return Response(response)
@@ -114,7 +116,11 @@ def updatePackage(request, pk):
 def deletePackage(request, pk):
     stored_data = Package.objects.get(id=pk)
     stored_data.delete()
-    return Response({'msg': "Item Deleted Successfully!"})
+    response = {
+        'code': '200',
+        'message': "Package Deleted Successfully!"
+    }
+    return Response(response)
 
 
 # from image.models import *
