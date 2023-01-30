@@ -29,22 +29,33 @@ def addHomeBanner(request):
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
             payload['image1'] = img_file
+        else:
+            if 'image1' in payload:
+                payload.pop('image1')
         if 'image2' in payload and payload['image2']!=None:
             fmt, img_str = str(payload['image2']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
             payload['image2'] = img_file
+        else:
+            if 'image2' in payload:
+                payload.pop('image2')
         if 'image3' in payload and payload['image3']!=None:
             fmt, img_str = str(payload['image3']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
             payload['image3'] = img_file
+        else:
+            if 'image3' in payload:
+                payload.pop('image3')
         if 'image4' in payload and payload['image4']!=None:
             fmt, img_str = str(payload['image4']).split(';base64,')
             ext = fmt.split('/')[-1]
             img_file = ContentFile(base64.b64decode(img_str), name='temp.' + ext)
             payload['image4'] = img_file
-
+        else:
+            if 'image4' in payload:
+                payload.pop('image4')
         homeBanner_instance = HomeBanner.objects.all()
         print(homeBanner_instance)
         print(len(homeBanner_instance)==0)
